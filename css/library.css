@@ -13,7 +13,7 @@
   font-family: Geist;
   font-size: 14px;
   /* #region MARK: Sizes
-  */
+ */
   --tiempo_load: 10s; /* Tiempo de 1 minuto para por ahora solo el cargador (loader) */
   --tam_cards_medium: 200px; /* Inicialmente diseñado para 200px */
   --font_card_medium: calc(
@@ -21,7 +21,7 @@
   ); /* Inicialmente diseñado para 7rem, ya que font-size=14px, entonces 7rem = 98 px para el tamaño de 200px. el valor/2.1 = 95px */
 
   /* #region MARK:SizNav 
-  */
+ */
   /*--size_menu: 15vw;  ORIGINAL DISEÑADO inicialmente en 80px */
   --size_menu: clamp(10vw, 80px, 90px); /* DISEÑADO inicialmente en 80px */
   --scale_menu: 1.4; /* DISEÑADO inicial en 140% para hover */
@@ -30,12 +30,12 @@
   ); /* DISEÑADO inicial para 14px de rem */
 
   /* MARK:SizGrid 
-  */
+ */
   --tam_grid_centro: 12vw;
   --tam_grid_centromax: 20vh;
 
   /* MARK:varColor
-  */
+ */
   --primaryCards: #101e42;
   --mainColor: #306ef9;
   --rutinesColor: #e11e90;
@@ -46,7 +46,7 @@
   --whiteAppColor: #f5f8ff;
 
   /* MARK:varTypo
-  */
+ */
   --fontSubtitle: min(11vh, 9vw);
 }
 /* #endregion */
@@ -160,7 +160,7 @@ path.b::after {
   height: var(--tam_cards_medium);
   position: absolute;
   /* background-color: rgba(76, 45, 108, 0.477);
-  border-radius: 40%; */
+ border-radius: 40%; */
   /* animation: carg_anim 5s 2 linear; */
 }
 .cargadorTiempo::before {
@@ -438,7 +438,7 @@ path.b::after {
   left: 0;
   background-color: var(--mainColor);
   /* width: 100%;
-  height: 100%; */
+ height: 100%; */
   width: calc(100% - 4vw - 4px);
   /* 100% - margenes - tamaño outline */
   height: calc(100% - 2vw - 4px - calc(var(--size_menu) / 2));
@@ -453,14 +453,14 @@ path.b::after {
   /* clip-path: url(#marco_clip); */
 }
 /* .marco_clip_size {
-  --proporcion_screen: calc(100vh / 100vw);
-  --proporcion_clip: calc(1920 / 1080);
-  --proporcion_final: calc(1.778 / var(--proporcion_screen));
-  --factor: calc(var(--proporcion_final) / 100);
-  --try_one: calc(100vw / 1080);
-  width: 100%;
-  height: 100%;
-  transform: scaleX(var(--try_one));
+ --proporcion_screen: calc(100vh / 100vw);
+ --proporcion_clip: calc(1920 / 1080);
+ --proporcion_final: calc(1.778 / var(--proporcion_screen));
+ --factor: calc(var(--proporcion_final) / 100);
+ --try_one: calc(100vw / 1080);
+ width: 100%;
+ height: 100%;
+ transform: scaleX(var(--try_one));
 } */
 .p_grid {
   /* width: calc(100% - (var(--size_menu) / 1.6)); */
@@ -543,12 +543,12 @@ path.b::after {
   transition: all 600ms ease-in-out;
 }
 /* .card_int01:hover {
-  order: 1;
-  --card_flex: 200px;
-  width: calc(100px + var(--card_flex));
-  height: calc(200px + var(--card_flex));
-  flex-grow: 10;
-  flex-shrink: 1;
+ order: 1;
+ --card_flex: 200px;
+ width: calc(100px + var(--card_flex));
+ height: calc(200px + var(--card_flex));
+ flex-grow: 10;
+ flex-shrink: 1;
 } */
 .card_int_open {
   /* STYLE que se impulsa por JavaScript cuando se clickea sobre cada CARD */
@@ -728,10 +728,10 @@ div.site_velo {
   outline: 4px solid white;
 }
 /* .navbtn_homeclass:hover {
-  --margin_navmenu: calc((var(--size_menu) * 0.1) / 2);
-  --size_menubtn: calc(var(--size_menu) / 1.6);
-  width: calc((var(--size_menubtn) * 5));
-  padding: 0 calc(var(--margin_navmenu) / 2);
+ --margin_navmenu: calc((var(--size_menu) * 0.1) / 2);
+ --size_menubtn: calc(var(--size_menu) / 1.6);
+ width: calc((var(--size_menubtn) * 5));
+ padding: 0 calc(var(--margin_navmenu) / 2);
 } */
 .navbtn_interior {
   display: flex;
@@ -801,12 +801,12 @@ div.site_velo {
   transition: color 0.4s ease-in;
 }
 /* .navbtn01:hover {
-  width: calc(var(--size_menubtn) + 100px);
-  border-radius: calc(var(--size_menubtn) + 100px);
+ width: calc(var(--size_menubtn) + 100px);
+ border-radius: calc(var(--size_menubtn) + 100px);
 } */
 /* .navbtn01:hover::after {
-  color: white;
-  content: "HOLA";
+ color: white;
+ content: "HOLA";
 } */
 
 /* MARK:GRAF
@@ -822,7 +822,7 @@ aside.graphics > div.grafico {
   );
   /* border: 1px solid #306ef9; */
   /*  animation: grafico_anim 3s ease-in-out;
-  animation-fill-mode: forwards; */
+ animation-fill-mode: forwards; */
 }
 @keyframes grafico_anim {
   0% {
@@ -885,7 +885,7 @@ aside.graphics > div.grafico {
   font-family: Geist;
   font-size: 14px;
   /* #region MARK: Sizes
-  */
+ */
   --tiempo_load: 10s; /* Tiempo de 1 minuto para por ahora solo el cargador (loader) */
   --tam_cards_medium: 200px; /* Inicialmente diseñado para 200px */
   --font_card_medium: calc(
@@ -893,7 +893,7 @@ aside.graphics > div.grafico {
   ); /* Inicialmente diseñado para 7rem, ya que font-size=14px, entonces 7rem = 98 px para el tamaño de 200px. el valor/2.1 = 95px */
 
   /* #region MARK:SizNav 
-  */
+ */
   /*--size_menu: 15vw;  ORIGINAL DISEÑADO inicialmente en 80px */
   --size_menu: clamp(10vw, 80px, 90px); /* DISEÑADO inicialmente en 80px */
   --scale_menu: 1.4; /* DISEÑADO inicial en 140% para hover */
@@ -902,12 +902,12 @@ aside.graphics > div.grafico {
   ); /* DISEÑADO inicial para 14px de rem */
 
   /* MARK:SizGrid 
-  */
+ */
   --tam_grid_centro: 12vw;
   --tam_grid_centromax: 20vh;
 
   /* MARK:varColor
-  */
+ */
   --primaryCards: #101e42;
   --mainColor: #306ef9;
   --rutinesColor: #e11e90;
@@ -918,7 +918,7 @@ aside.graphics > div.grafico {
   --whiteAppColor: #f5f8ff;
 
   /* MARK:varTypo
-  */
+ */
   --fontSubtitle: min(11vh, 9vw);
 }
 /* #endregion */
@@ -1032,7 +1032,7 @@ path.b::after {
   height: var(--tam_cards_medium);
   position: absolute;
   /* background-color: rgba(76, 45, 108, 0.477);
-  border-radius: 40%; */
+ border-radius: 40%; */
   /* animation: carg_anim 5s 2 linear; */
 }
 .cargadorTiempo::before {
@@ -1310,7 +1310,7 @@ path.b::after {
   left: 0;
   background-color: var(--mainColor);
   /* width: 100%;
-  height: 100%; */
+ height: 100%; */
   width: calc(100% - 4vw - 4px);
   /* 100% - margenes - tamaño outline */
   height: calc(100% - 2vw - 4px - calc(var(--size_menu) / 2));
@@ -1325,14 +1325,14 @@ path.b::after {
   /* clip-path: url(#marco_clip); */
 }
 /* .marco_clip_size {
-  --proporcion_screen: calc(100vh / 100vw);
-  --proporcion_clip: calc(1920 / 1080);
-  --proporcion_final: calc(1.778 / var(--proporcion_screen));
-  --factor: calc(var(--proporcion_final) / 100);
-  --try_one: calc(100vw / 1080);
-  width: 100%;
-  height: 100%;
-  transform: scaleX(var(--try_one));
+ --proporcion_screen: calc(100vh / 100vw);
+ --proporcion_clip: calc(1920 / 1080);
+ --proporcion_final: calc(1.778 / var(--proporcion_screen));
+ --factor: calc(var(--proporcion_final) / 100);
+ --try_one: calc(100vw / 1080);
+ width: 100%;
+ height: 100%;
+ transform: scaleX(var(--try_one));
 } */
 .p_grid {
   /* width: calc(100% - (var(--size_menu) / 1.6)); */
@@ -1415,12 +1415,12 @@ path.b::after {
   transition: all 600ms ease-in-out;
 }
 /* .card_int01:hover {
-  order: 1;
-  --card_flex: 200px;
-  width: calc(100px + var(--card_flex));
-  height: calc(200px + var(--card_flex));
-  flex-grow: 10;
-  flex-shrink: 1;
+ order: 1;
+ --card_flex: 200px;
+ width: calc(100px + var(--card_flex));
+ height: calc(200px + var(--card_flex));
+ flex-grow: 10;
+ flex-shrink: 1;
 } */
 .card_int_open {
   /* STYLE que se impulsa por JavaScript cuando se clickea sobre cada CARD */
@@ -1600,10 +1600,10 @@ div.site_velo {
   outline: 4px solid white;
 }
 /* .navbtn_homeclass:hover {
-  --margin_navmenu: calc((var(--size_menu) * 0.1) / 2);
-  --size_menubtn: calc(var(--size_menu) / 1.6);
-  width: calc((var(--size_menubtn) * 5));
-  padding: 0 calc(var(--margin_navmenu) / 2);
+ --margin_navmenu: calc((var(--size_menu) * 0.1) / 2);
+ --size_menubtn: calc(var(--size_menu) / 1.6);
+ width: calc((var(--size_menubtn) * 5));
+ padding: 0 calc(var(--margin_navmenu) / 2);
 } */
 .navbtn_interior {
   display: flex;
@@ -1673,12 +1673,12 @@ div.site_velo {
   transition: color 0.4s ease-in;
 }
 /* .navbtn01:hover {
-  width: calc(var(--size_menubtn) + 100px);
-  border-radius: calc(var(--size_menubtn) + 100px);
+ width: calc(var(--size_menubtn) + 100px);
+ border-radius: calc(var(--size_menubtn) + 100px);
 } */
 /* .navbtn01:hover::after {
-  color: white;
-  content: "HOLA";
+ color: white;
+ content: "HOLA";
 } */
 
 /* MARK:GRAF
@@ -1694,7 +1694,7 @@ aside.graphics > div.grafico {
   );
   /* border: 1px solid #306ef9; */
   /*  animation: grafico_anim 3s ease-in-out;
-  animation-fill-mode: forwards; */
+ animation-fill-mode: forwards; */
 }
 @keyframes grafico_anim {
   0% {
@@ -1757,7 +1757,7 @@ aside.graphics > div.grafico {
   font-family: Geist;
   font-size: 14px;
   /* #region MARK: Sizes
-  */
+ */
   --tiempo_load: 10s; /* Tiempo de 1 minuto para por ahora solo el cargador (loader) */
   --tam_cards_medium: 200px; /* Inicialmente diseñado para 200px */
   --font_card_medium: calc(
@@ -1765,7 +1765,7 @@ aside.graphics > div.grafico {
   ); /* Inicialmente diseñado para 7rem, ya que font-size=14px, entonces 7rem = 98 px para el tamaño de 200px. el valor/2.1 = 95px */
 
   /* #region MARK:SizNav 
-  */
+ */
   /*--size_menu: 15vw;  ORIGINAL DISEÑADO inicialmente en 80px */
   --size_menu: clamp(10vw, 80px, 90px); /* DISEÑADO inicialmente en 80px */
   --scale_menu: 1.4; /* DISEÑADO inicial en 140% para hover */
@@ -1774,12 +1774,12 @@ aside.graphics > div.grafico {
   ); /* DISEÑADO inicial para 14px de rem */
 
   /* MARK:SizGrid 
-  */
+ */
   --tam_grid_centro: 12vw;
   --tam_grid_centromax: 20vh;
 
   /* MARK:varColor
-  */
+ */
   --primaryCards: #101e42;
   --mainColor: #306ef9;
   --rutinesColor: #e11e90;
@@ -1790,7 +1790,7 @@ aside.graphics > div.grafico {
   --whiteAppColor: #f5f8ff;
 
   /* MARK:varTypo
-  */
+ */
   --fontSubtitle: min(11vh, 9vw);
 }
 /* #endregion */
@@ -1904,7 +1904,7 @@ path.b::after {
   height: var(--tam_cards_medium);
   position: absolute;
   /* background-color: rgba(76, 45, 108, 0.477);
-  border-radius: 40%; */
+ border-radius: 40%; */
   /* animation: carg_anim 5s 2 linear; */
 }
 .cargadorTiempo::before {
@@ -2182,7 +2182,7 @@ path.b::after {
   left: 0;
   background-color: var(--mainColor);
   /* width: 100%;
-  height: 100%; */
+ height: 100%; */
   width: calc(100% - 4vw - 4px);
   /* 100% - margenes - tamaño outline */
   height: calc(100% - 2vw - 4px - calc(var(--size_menu) / 2));
@@ -2197,14 +2197,14 @@ path.b::after {
   /* clip-path: url(#marco_clip); */
 }
 /* .marco_clip_size {
-  --proporcion_screen: calc(100vh / 100vw);
-  --proporcion_clip: calc(1920 / 1080);
-  --proporcion_final: calc(1.778 / var(--proporcion_screen));
-  --factor: calc(var(--proporcion_final) / 100);
-  --try_one: calc(100vw / 1080);
-  width: 100%;
-  height: 100%;
-  transform: scaleX(var(--try_one));
+ --proporcion_screen: calc(100vh / 100vw);
+ --proporcion_clip: calc(1920 / 1080);
+ --proporcion_final: calc(1.778 / var(--proporcion_screen));
+ --factor: calc(var(--proporcion_final) / 100);
+ --try_one: calc(100vw / 1080);
+ width: 100%;
+ height: 100%;
+ transform: scaleX(var(--try_one));
 } */
 .p_grid {
   /* width: calc(100% - (var(--size_menu) / 1.6)); */
@@ -2287,12 +2287,12 @@ path.b::after {
   transition: all 600ms ease-in-out;
 }
 /* .card_int01:hover {
-  order: 1;
-  --card_flex: 200px;
-  width: calc(100px + var(--card_flex));
-  height: calc(200px + var(--card_flex));
-  flex-grow: 10;
-  flex-shrink: 1;
+ order: 1;
+ --card_flex: 200px;
+ width: calc(100px + var(--card_flex));
+ height: calc(200px + var(--card_flex));
+ flex-grow: 10;
+ flex-shrink: 1;
 } */
 .card_int_open {
   /* STYLE que se impulsa por JavaScript cuando se clickea sobre cada CARD */
@@ -2472,10 +2472,10 @@ div.site_velo {
   outline: 4px solid white;
 }
 /* .navbtn_homeclass:hover {
-  --margin_navmenu: calc((var(--size_menu) * 0.1) / 2);
-  --size_menubtn: calc(var(--size_menu) / 1.6);
-  width: calc((var(--size_menubtn) * 5));
-  padding: 0 calc(var(--margin_navmenu) / 2);
+ --margin_navmenu: calc((var(--size_menu) * 0.1) / 2);
+ --size_menubtn: calc(var(--size_menu) / 1.6);
+ width: calc((var(--size_menubtn) * 5));
+ padding: 0 calc(var(--margin_navmenu) / 2);
 } */
 .navbtn_interior {
   display: flex;
@@ -2545,12 +2545,12 @@ div.site_velo {
   transition: color 0.4s ease-in;
 }
 /* .navbtn01:hover {
-  width: calc(var(--size_menubtn) + 100px);
-  border-radius: calc(var(--size_menubtn) + 100px);
+ width: calc(var(--size_menubtn) + 100px);
+ border-radius: calc(var(--size_menubtn) + 100px);
 } */
 /* .navbtn01:hover::after {
-  color: white;
-  content: "HOLA";
+ color: white;
+ content: "HOLA";
 } */
 
 /* MARK:GRAF
@@ -2566,7 +2566,7 @@ aside.graphics > div.grafico {
   );
   /* border: 1px solid #306ef9; */
   /*  animation: grafico_anim 3s ease-in-out;
-  animation-fill-mode: forwards; */
+ animation-fill-mode: forwards; */
 }
 @keyframes grafico_anim {
   0% {
