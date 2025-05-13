@@ -1,0 +1,2616 @@
+@font-face {
+  font-family: dalcora;
+  src: url("../fonts/dalcora.ttf") format("truetype");
+  font-family: Geist;
+  src: url("../fonts/Geist[wght].ttf") format("truetype") tech(variations);
+  font-weight: 100 200 300 400 500 600 700 800 900;
+  size-adjust: 99%;
+}
+/* #region MARK:ROOT 
+*/
+:root {
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: Geist;
+  font-size: 14px;
+  /* #region MARK: Sizes
+  */
+  --tiempo_load: 10s; /* Tiempo de 1 minuto para por ahora solo el cargador (loader) */
+  --tam_cards_medium: 200px; /* Inicialmente diseñado para 200px */
+  --font_card_medium: calc(
+    var(--tam_cards_medium) / 2.1
+  ); /* Inicialmente diseñado para 7rem, ya que font-size=14px, entonces 7rem = 98 px para el tamaño de 200px. el valor/2.1 = 95px */
+
+  /* #region MARK:SizNav 
+  */
+  /*--size_menu: 15vw;  ORIGINAL DISEÑADO inicialmente en 80px */
+  --size_menu: clamp(10vw, 80px, 90px); /* DISEÑADO inicialmente en 80px */
+  --scale_menu: 1.4; /* DISEÑADO inicial en 140% para hover */
+  --font_menu: calc(
+    (var(--size_menu) / 5.7)
+  ); /* DISEÑADO inicial para 14px de rem */
+
+  /* MARK:SizGrid 
+  */
+  --tam_grid_centro: 12vw;
+  --tam_grid_centromax: 20vh;
+
+  /* MARK:varColor
+  */
+  --primaryCards: #101e42;
+  --mainColor: #306ef9;
+  --rutinesColor: #e11e90;
+  --goalsColor: #fdcf28;
+  --profileColor: #8604d1;
+  --exercisesColor: #c0f735;
+  --mealsColor: #f3991b;
+  --whiteAppColor: #f5f8ff;
+
+  /* MARK:varTypo
+  */
+  --fontSubtitle: min(11vh, 9vw);
+}
+/* #endregion */
+
+/* #region MARK:RESET 
+Inicio Reset */
+*,
+*::before,
+*::after {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box; /* IMPORTANTE: Hace que mis tamaños dependan del width que le de a la caja (elemento), sin contar el tamaño de bordes o paddings */
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+html {
+  scroll-behavior: smooth;
+}
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+  /* height: 100%; */
+  /* Le quito el height porque afecta mi STICKY, de tenerlo la barra que quiero se desplace y quede quita lo hará solo hasta la altura asignada en este body, por definición, todo lo que le haga a un padre de un STICKY puede afectarle */
+}
+/* #endregion */
+
+/* #region MARK:MAQUET 
+*/
+main {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  justify-content: center;
+  /* background: linear-gradient(#cd899e, #a6427c, #234272, #101e42); */
+  /* background: linear-gradient(#dfb1b6, #234272 90%, #101e42 100%); */
+  background: linear-gradient(#f5f8ff 60%, var(--mainColor) 100%);
+}
+
+/* #enderegion */
+
+/* #region MARK:CONTAIN 
+*/
+.element_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+  /* height: 250px;  Al no contener nada no se ve, para VER activar*/
+  /* border: 1px solid black; */
+  margin: auto;
+}
+/* #enderegion */
+
+/* #region MARK:LOGO
+*/
+div.logo_inicio {
+  display: flex;
+  position: absolute;
+  width: 20vh;
+  height: 80vh;
+  /* border: 1px solid black; */
+  margin: auto;
+  opacity: 100;
+  visibility: visible;
+  transition: all 600ms ease;
+}
+path.a,
+path.b {
+  fill: var(--mainColor);
+}
+path.a {
+  transform: translateY(-50%);
+  opacity: 0;
+  transition-delay: 500ms;
+  transition: all 600ms ease-in-out;
+}
+path.b {
+  transform: translateY(+50%);
+  opacity: 0;
+  transition-delay: 500ms;
+  transition: all 600ms ease-in-out;
+}
+.path.a::after,
+path.b::after {
+  content: "";
+  transform: translateY(0);
+  opacity: 100;
+}
+
+/*ESTO ESTÁ EN JAVASCRIPT funcion chargeLogo */
+
+/*#region MARK: LOADERS 
+*/
+.cargadorTiempo {
+  width: var(--tam_cards_medium);
+  height: var(--tam_cards_medium);
+  position: absolute;
+  /* background-color: rgba(76, 45, 108, 0.477);
+  border-radius: 40%; */
+  /* animation: carg_anim 5s 2 linear; */
+}
+.cargadorTiempo::before {
+  content: "";
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  /* background-color: rgba(76, 45, 108, 0.477); */
+  background-color: #23437266;
+  border-radius: 40%;
+  /* animation: carg_anim 5s 2 linear; */
+}
+.cargadorTiempo::after {
+  content: "";
+  width: inherit;
+  height: inherit;
+  /* background-color: rgb(93, 31, 152); */
+  background-color: var(--primaryCards);
+  position: absolute;
+  border-radius: 40%;
+  /* border: 30px solid #514b82; */
+  animation: carg_anim var(--tiempo_load) 2 linear;
+}
+.cargadorTiempo_texto {
+  text-align: center;
+  align-items: center;
+  font-size: calc(var(--font_card_medium) / 1.8);
+  color: transparent;
+  border: 1px;
+  z-index: 1;
+  animation: carg_anim_text calc(var(--tiempo_load)) 2 ease-in;
+}
+@keyframes carg_anim_text {
+  0% {
+    color: rgba(255, 255, 255, 0);
+    font-size: calc(var(--font_card_medium) / 1.8);
+  }
+  2% {
+    color: rgb(255, 255, 255);
+    font-size: var(--font_card_medium);
+  }
+  20% {
+    color: rgb(255, 255, 255);
+    font-size: var(--font_card_medium);
+  }
+  24% {
+    color: rgb(255, 255, 255);
+    font-size: calc(var(--font_card_medium) / 1.8);
+  }
+  96% {
+    color: rgb(255, 255, 255);
+    font-size: calc(var(--font_card_medium) / 1.8);
+  }
+  100% {
+    color: rgba(255, 255, 255, 0);
+    font-size: 0rem;
+  }
+}
+@keyframes carg_anim {
+  0% {
+    clip-path: polygon(50% 50%, 50% 0, 50% 0, 50% 0, 50% 0, 50% 0, 50% 0);
+  }
+  12.5% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  37.5% {
+    clip-path: polygon(
+      50% 50%,
+      50% 0,
+      100% 0,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%
+    );
+  }
+  62.5% {
+    clip-path: polygon(
+      50% 50%,
+      50% 0,
+      100% 0,
+      100% 100%,
+      0 100%,
+      0 100%,
+      0 100%
+    );
+  }
+  87.5% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 0 0);
+  }
+  100% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);
+  }
+}
+/* #endregion */
+
+/* #region MARK:Cards2
+*/
+.home {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1s ease;
+}
+.contenedor_grid {
+  display: grid;
+  grid-template-columns:
+    1fr minmax(var(--tam_grid_centromax), var(--tam_grid_centro))
+    1fr;
+  /* grid-template-columns: 1fr 0 0; */
+  grid-template-rows:
+    1.5fr 1.5fr minmax(var(--tam_grid_centro), var(--tam_grid_centromax))
+    1fr 1fr 1fr;
+  /* grid-template-rows: 1fr 0 0 0 0 0 ; */
+  width: calc(100% - 4vw);
+  height: calc(100% - 4vw);
+  margin: 2vw;
+  gap: 2vw;
+  align-items: center;
+  justify-items: center;
+  font-family: Geist;
+  font-weight: 600;
+  font-size: 1.4rem;
+  transition: all 600ms ease;
+}
+.item_grid {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid black; */
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.grid_01 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  border-radius: 0 5vh 5vh 5vh;
+  background-color: var(--primaryCards);
+  align-items: start;
+  color: #f5f8ff;
+  justify-content: left;
+  font-size: var(--fontSubtitle);
+  transform: translate();
+  transition: all 600ms ease-in-out;
+}
+.grid_01:hover {
+  background-color: var(--rutinesColor);
+  color: #111b2d;
+  /* transform: translate(-110%, -110%); */
+}
+.grid_02 {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  border-radius: 5vh 0 5vh 5vh;
+  background-color: var(--primaryCards);
+  color: #f5f8ff;
+  align-items: end;
+  justify-content: right;
+  font-size: var(--fontSubtitle);
+  writing-mode: vertical-lr;
+  transform: translate();
+  transition: all 600ms ease-in-out;
+}
+.grid_02:hover {
+  background-color: var(--goalsColor);
+  color: #111b2d;
+  /* transform: translate(110%, -110%); */
+}
+.grid_03 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 5;
+  border-radius: 5vh 5vh 5vh 5vh;
+  background-color: var(--primaryCards);
+  color: #f5f8ff;
+  align-items: start;
+  justify-content: center;
+  /* font-size: 1.5rem; en .p_grid_03 ya que he tenido que animarlo independiente porque align no permite animaciones y yo lo quería centrado en la vertical */
+  transform: translateX();
+  transition: all 600ms 0ms ease-in-out;
+}
+.grid_03:hover {
+  background-color: var(--profileColor);
+  color: #111b2d;
+  /* color: #111b2d; */
+  /* transform: translateX(-110%); */
+}
+.p_grid_03 {
+  display: flex;
+  /* font-size: 1.5rem; ANTES de asignarle un valor variable como el de abajo, tenia esta medida*/
+  font-size: calc(var(--fontSubtitle) / 2);
+  height: 100%;
+  /* border: 1px solid black; */
+  align-items: center;
+  transition: font-size 600ms ease-in-out, height 800ms ease-in-out;
+  /* transition: height 600ms ease-in-out; */
+}
+.grid_04 {
+  background-color: var(--mainColor);
+  color: #111b2d;
+  font-size: 6rem;
+  line-height: 0rem;
+  border-radius: 0;
+  transform: scale();
+  transition: all 600ms ease-in-out;
+  /* border: 1px solid black; */
+}
+.grid_04:hover {
+  border-radius: 5vh;
+  /* transform: scale(0%); */
+}
+.grid_05 {
+  /* EXERCISES */
+  display: flex;
+  flex-flow: row wrap;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 4;
+  grid-row-end: 7;
+  border-radius: 5vh 5vh 0 5vh;
+  background-color: var(--primaryCards);
+  color: var(--whiteAppColor);
+  align-items: end;
+  justify-content: right; /* QUIZAS este no es necesario ya que ahora esta div contiene un <p> con el titulo y este <p> tiene text-align right */
+  font-size: var(--fontSubtitle);
+  transform: translate();
+  transition: all 600ms ease-in-out;
+}
+.grid_05:hover {
+  background-color: var(--exercisesColor);
+  color: #111b2d;
+  /* transform: translate(110%, 110%); */
+}
+.grid_06 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 5;
+  grid-row-end: 7;
+  border-radius: 5vh 5vh 5vh 0;
+  background-color: var(--primaryCards);
+  color: #f5f8ff;
+  /* align-items: center; ANTES pero para animar con texto centrado en la vertical se ha cambiado */
+  align-items: end;
+  justify-content: center;
+  /* font-size: 1.5rem; en .p_grid_03 ya que he tenido que animarlo independiente porque align no permite animaciones y yo lo quería centrado en la vertical */
+  transform: translate();
+  transition: all 600ms ease-in-out;
+}
+.grid_06:hover {
+  background-color: var(--mealsColor);
+  color: #111b2d;
+  /* transform: translate(-110%, 110%); */
+}
+.p_grid_06 {
+  display: flex;
+  font-size: calc(var(--fontSubtitle) / 2);
+  height: 100%;
+  /* border: 1px solid black; */
+  align-items: center;
+  transition: font-size 600ms ease-in-out, height 800ms ease-in-out;
+  /* transition: height 600ms ease-in-out; */
+}
+.actualExercise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--mainColor);
+  /* width: 100%;
+  height: 100%; */
+  width: calc(100% - 4vw - 4px);
+  /* 100% - margenes - tamaño outline */
+  height: calc(100% - 2vw - 4px - calc(var(--size_menu) / 2));
+  margin: 2vw;
+  outline: 4px solid rgb(255, 255, 255);
+  /* border: 1px solid black; */
+  border-radius: 5vh;
+  transform: scale(0);
+  opacity: 0;
+  transition: all 600ms 300ms ease-in-out;
+  z-index: 0;
+  /* clip-path: url(#marco_clip); */
+}
+/* .marco_clip_size {
+  --proporcion_screen: calc(100vh / 100vw);
+  --proporcion_clip: calc(1920 / 1080);
+  --proporcion_final: calc(1.778 / var(--proporcion_screen));
+  --factor: calc(var(--proporcion_final) / 100);
+  --try_one: calc(100vw / 1080);
+  width: 100%;
+  height: 100%;
+  transform: scaleX(var(--try_one));
+} */
+.p_grid {
+  /* width: calc(100% - (var(--size_menu) / 1.6)); */
+  width: 100%;
+  /* display: inline-block; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+.grid_01 > .p_grid {
+  text-align: left;
+}
+.grid_02 > h4 {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: right;
+  /* border: 1px solid black; */
+}
+.grid_05 > .p_grid {
+  text-align: right;
+}
+.item_grid a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--whiteAppColor);
+  width: 0;
+  height: 0;
+  background-color: var(--primaryCards);
+  border-radius: 50%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 600ms ease-in-out;
+}
+
+/* MARK:Level3 
+*/
+.interior_grid {
+  /* ARTICLE es el contenedor de todo el interior */
+  display: flex;
+  flex-flow: row wrap;
+  width: 0;
+  height: 0;
+  overflow: auto;
+  align-content: start;
+  align-items: end;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 600ms ease-in-out;
+  /* border: 1px solid black; */
+}
+.interior_grid_on {
+  width: 100%;
+  /* height: 90%; */
+  height: calc(95% - var(--fontSubtitle));
+  opacity: 100;
+  visibility: visible;
+}
+.Card_interior {
+  /* DIV que es el contenedor cada tarjeta (CARD) del interior */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  order: 2;
+  --card_flex: 0px;
+  flex-grow: 1;
+  flex-shrink: 10;
+  font-size: 1rem;
+  /* flex-basis: calc(100px - var(--card_flex)); */
+  width: calc(100px - var(--card_flex));
+  height: calc(100px - var(--card_flex));
+  border-radius: 4vh;
+  margin: 0.7vh;
+  color: var(--whiteAppColor);
+  background-color: var(--primaryCards);
+  transition: all 600ms ease-in-out;
+}
+/* .card_int01:hover {
+  order: 1;
+  --card_flex: 200px;
+  width: calc(100px + var(--card_flex));
+  height: calc(200px + var(--card_flex));
+  flex-grow: 10;
+  flex-shrink: 1;
+} */
+.card_int_open {
+  /* STYLE que se impulsa por JavaScript cuando se clickea sobre cada CARD */
+  order: 1;
+  --card_flex: 40vh; /* TAMAÑO que aumentará la CARD */
+  width: calc(100px + var(--card_flex));
+  height: calc(200px + var(--card_flex));
+  flex-grow: 10;
+  flex-shrink: 1;
+
+  /* STYLE para el CONTENIDO */
+}
+.card_int02 {
+  /* CARD de prueba para ver posición (ORDER de flex) de cada CARD */
+  background-color: #6d1d4f;
+}
+.card_int_add {
+  font-size: 3rem;
+}
+.Card_interior > article {
+  display: flex;
+  padding: 1rem;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid rgb(67, 222, 29); */
+}
+.Card_interior > article h5 {
+  font-size: 1rem;
+  text-align: center;
+  /* border: 1px solid rgb(67, 222, 29); */
+  transition: all 600ms ease-in-out;
+}
+.Card_interior > article div#contenido {
+  display: flex;
+  transform: scale(0%);
+  width: 100%;
+  height: 0%;
+  opacity: 0;
+  /* border: 1px solid white; */
+  transition: all 600ms ease-in-out;
+}
+.articulo_contenido {
+  transform: scale(100%);
+}
+/* MARK:CrCon
+Styles del CONTENIDO DE CADA CARD */
+div#contenido {
+  display: flex;
+  flex-flow: row wrap;
+}
+div#contenido > h6 {
+  display: flex;
+  align-items: center;
+  width: calc(100% - 4rem);
+  height: 3rem;
+  font-size: 1rem;
+  justify-content: center;
+  vertical-align: middle;
+  color: var(--whiteAppColor);
+  /* border: 1px solid greenyellow; */
+}
+div#contenido > p.sincedays {
+  display: flex;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  justify-content: center;
+  background-color: var(--exercisesColor);
+  border-radius: 30%;
+  color: var(--primaryCards);
+  font-size: 1.4rem;
+  font-weight: 800;
+  /* border: 1px solid greenyellow; */
+}
+div#contenido > aside.graphics {
+  /* border: 1px solid greenyellow; */
+  width: 100%;
+  height: calc(100% - 3rem);
+}
+
+/* MARK: Drawin' 
+*/
+div.mask_draw {
+  display: block;
+  transform: translateX(calc(-2rem));
+  width: 100%;
+  overflow: hidden;
+  /* border: 1px solid rgb(158, 12, 12); */
+}
+div.cont_draw {
+  transform: translateX(-4px);
+  width: 100%;
+  /* border: 1px solid black; */
+}
+#path_size {
+  width: 60%;
+  height: 60%;
+  visibility: visible;
+}
+.draw_path_off {
+  fill: none;
+  stroke: none;
+  transform: translateY(1px);
+}
+.draw_path_on {
+  fill: none;
+  stroke: #a6427c;
+  stroke-width: 2px;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: move_path 2s ease-in-out forwards;
+}
+@keyframes move_path {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* #region MARK: NAV2
+*/
+.menu_position {
+  display: flex;
+  justify-content: center;
+  width: 400px;
+  /* border: 1px solid black; */
+  margin: auto;
+  /* agregadas en nuevo html libreria*/
+  visibility: hidden;
+  opacity: 0;
+  transition: all 600ms 200ms ease-in-out;
+}
+aside.menu_nav {
+  width: var(--size_menu);
+  height: var(--size_menu);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  z-index: 3;
+}
+div.site_velo {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 2; /* IMPORTANTE: z-index depende de la propiedad posición (position) por tanto aqui solo tengo dos fijas una para el velo blanco en 0 y otra para el menu de navegación en 1, es decir por encima del velo */
+  visibility: hidden;
+  background-color: rgba(255, 255, 255, 0);
+  transition: all 1s ease-in-out;
+}
+
+.menu_nav {
+  --margin_navmenu: calc((var(--size_menu) * 0.1) / 2);
+  --size_menubtn: calc(var(--size_menu) / 1.6);
+  width: 100vw;
+  height: 95vh;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: end;
+}
+.navbtn_homeclass {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc((var(--size_menu) / 1.4));
+  height: calc((var(--size_menu) / 1.4));
+  padding: 0;
+  background-color: #306ef9;
+  border-radius: calc((var(--size_menu) / 1.4));
+  transition: all 400ms ease-in-out;
+  outline: 4px solid white;
+}
+/* .navbtn_homeclass:hover {
+  --margin_navmenu: calc((var(--size_menu) * 0.1) / 2);
+  --size_menubtn: calc(var(--size_menu) / 1.6);
+  width: calc((var(--size_menubtn) * 5));
+  padding: 0 calc(var(--margin_navmenu) / 2);
+} */
+.navbtn_interior {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--size_menubtn);
+  height: calc(var(--size_menubtn) - var(--margin_navmenu));
+  margin: var(--margin_navmenu);
+  background-color: var(--primaryCards);
+  border-radius: 50%;
+  transform: scale(0%);
+  filter: blur(10px);
+  opacity: 0;
+  font-size: 0;
+  font-weight: 700;
+  transition: all 400ms ease-in-out;
+}
+.navbtn01,
+.navbtn02,
+.navbtn04,
+.navbtn05 {
+  width: var(--size_menubtn);
+  height: calc(var(--size_menubtn) - var(--margin_navmenu));
+  /* color: rgba(255, 255, 255, 0); */
+  font-size: 0;
+  font-weight: 700;
+  transition: all 400ms ease-in-out;
+}
+.navbtn03 {
+  width: var(--size_menubtn);
+  height: calc(var(--size_menubtn) - var(--margin_navmenu));
+  background-color: var(--profileColor);
+  color: rgba(255, 255, 255, 1);
+  font-size: 3rem;
+  padding-bottom: calc(3rem / 10);
+  outline: 2px solid white;
+  transition: all 400ms ease-in-out;
+}
+.navbtn01_hover {
+  width: calc(var(--size_menubtn) + 100px);
+  border-radius: calc(var(--size_menubtn) + 100px);
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.2rem;
+}
+.navbtn_mini {
+  width: 20px;
+  height: 20px;
+  font-size: 0rem;
+  color: rgba(255, 255, 255, 0);
+  padding-bottom: calc(1rem / 10);
+  transition: all 400ms ease-in-out;
+}
+#btn_menu > a {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: calc(var(--font_menu) * 2); /* font-size: 2rem donde em=14px*/
+  line-height: calc(
+    var(--font_menu) * 2
+  ); /* Para mantener la alineación vertical centrada en casos de menu muy pequeño como 20px */
+  color: var(--whiteAppColor);
+  rotate: 90deg;
+  transition: color 0.4s ease-in;
+}
+/* .navbtn01:hover {
+  width: calc(var(--size_menubtn) + 100px);
+  border-radius: calc(var(--size_menubtn) + 100px);
+} */
+/* .navbtn01:hover::after {
+  color: white;
+  content: "HOLA";
+} */
+
+/* MARK:GRAF
+*/
+aside.graphics > div.grafico {
+  width: 100%;
+  height: 120px;
+  margin-top: 2rem;
+  background: linear-gradient(
+    to bottom,
+    var(--rutinesColor) 20%,
+    var(--primaryCards) 100%
+  );
+  /* border: 1px solid #306ef9; */
+  /*  animation: grafico_anim 3s ease-in-out;
+  animation-fill-mode: forwards; */
+}
+@keyframes grafico_anim {
+  0% {
+    clip-path: polygon(
+      14% 100%,
+      0 100%,
+      0 100%,
+      100% 100%,
+      100% 100%,
+      93% 100%,
+      84% 100%,
+      70% 100%,
+      56% 100%,
+      45% 100%,
+      36% 100%,
+      28% 100%
+    );
+  }
+  100% {
+    clip-path: polygon(
+      7% 27%,
+      0 34%,
+      0 100%,
+      100% 100%,
+      100% 14%,
+      86% 13%,
+      73% 16%,
+      61% 21%,
+      46% 24%,
+      39% 30%,
+      28% 28%,
+      17% 30%
+    );
+  }
+}
+
+/* #region MARK: CONTENT
+*/
+
+/* MARK:MEDIA 
+*/
+@media screen and (max-width: 400px) {
+  :root {
+    --tam_grid_centro: 10vw;
+    --tam_grid_centromax: 10vh;
+  }
+}
+@font-face {
+  font-family: dalcora;
+  src: url("../fonts/dalcora.ttf") format("truetype");
+  font-family: Geist;
+  src: url("../fonts/Geist[wght].ttf") format("truetype") tech(variations);
+  font-weight: 100 200 300 400 500 600 700 800 900;
+  size-adjust: 99%;
+}
+/* #region MARK:ROOT 
+*/
+:root {
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: Geist;
+  font-size: 14px;
+  /* #region MARK: Sizes
+  */
+  --tiempo_load: 10s; /* Tiempo de 1 minuto para por ahora solo el cargador (loader) */
+  --tam_cards_medium: 200px; /* Inicialmente diseñado para 200px */
+  --font_card_medium: calc(
+    var(--tam_cards_medium) / 2.1
+  ); /* Inicialmente diseñado para 7rem, ya que font-size=14px, entonces 7rem = 98 px para el tamaño de 200px. el valor/2.1 = 95px */
+
+  /* #region MARK:SizNav 
+  */
+  /*--size_menu: 15vw;  ORIGINAL DISEÑADO inicialmente en 80px */
+  --size_menu: clamp(10vw, 80px, 90px); /* DISEÑADO inicialmente en 80px */
+  --scale_menu: 1.4; /* DISEÑADO inicial en 140% para hover */
+  --font_menu: calc(
+    (var(--size_menu) / 5.7)
+  ); /* DISEÑADO inicial para 14px de rem */
+
+  /* MARK:SizGrid 
+  */
+  --tam_grid_centro: 12vw;
+  --tam_grid_centromax: 20vh;
+
+  /* MARK:varColor
+  */
+  --primaryCards: #101e42;
+  --mainColor: #306ef9;
+  --rutinesColor: #e11e90;
+  --goalsColor: #fdcf28;
+  --profileColor: #8604d1;
+  --exercisesColor: #c0f735;
+  --mealsColor: #f3991b;
+  --whiteAppColor: #f5f8ff;
+
+  /* MARK:varTypo
+  */
+  --fontSubtitle: min(11vh, 9vw);
+}
+/* #endregion */
+
+/* #region MARK:RESET 
+Inicio Reset */
+*,
+*::before,
+*::after {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box; /* IMPORTANTE: Hace que mis tamaños dependan del width que le de a la caja (elemento), sin contar el tamaño de bordes o paddings */
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+html {
+  scroll-behavior: smooth;
+}
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+  /* height: 100%; */
+  /* Le quito el height porque afecta mi STICKY, de tenerlo la barra que quiero se desplace y quede quita lo hará solo hasta la altura asignada en este body, por definición, todo lo que le haga a un padre de un STICKY puede afectarle */
+}
+/* #endregion */
+
+/* #region MARK:MAQUET 
+*/
+main {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  justify-content: center;
+  /* background: linear-gradient(#cd899e, #a6427c, #234272, #101e42); */
+  /* background: linear-gradient(#dfb1b6, #234272 90%, #101e42 100%); */
+  background: linear-gradient(#f5f8ff 60%, var(--mainColor) 100%);
+}
+
+/* #enderegion */
+
+/* #region MARK:CONTAIN 
+*/
+.element_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+  /* height: 250px;  Al no contener nada no se ve, para VER activar*/
+  /* border: 1px solid black; */
+  margin: auto;
+}
+/* #enderegion */
+
+/* #region MARK:LOGO
+*/
+div.logo_inicio {
+  display: flex;
+  position: absolute;
+  width: 20vh;
+  height: 80vh;
+  /* border: 1px solid black; */
+  margin: auto;
+  opacity: 100;
+  visibility: visible;
+  transition: all 600ms ease;
+}
+path.a,
+path.b {
+  fill: var(--mainColor);
+}
+path.a {
+  transform: translateY(-50%);
+  opacity: 0;
+  transition-delay: 500ms;
+  transition: all 600ms ease-in-out;
+}
+path.b {
+  transform: translateY(+50%);
+  opacity: 0;
+  transition-delay: 500ms;
+  transition: all 600ms ease-in-out;
+}
+.path.a::after,
+path.b::after {
+  content: "";
+  transform: translateY(0);
+  opacity: 100;
+}
+
+/*ESTO ESTÁ EN JAVASCRIPT funcion chargeLogo */
+
+/*#region MARK: LOADERS 
+*/
+.cargadorTiempo {
+  width: var(--tam_cards_medium);
+  height: var(--tam_cards_medium);
+  position: absolute;
+  /* background-color: rgba(76, 45, 108, 0.477);
+  border-radius: 40%; */
+  /* animation: carg_anim 5s 2 linear; */
+}
+.cargadorTiempo::before {
+  content: "";
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  /* background-color: rgba(76, 45, 108, 0.477); */
+  background-color: #23437266;
+  border-radius: 40%;
+  /* animation: carg_anim 5s 2 linear; */
+}
+.cargadorTiempo::after {
+  content: "";
+  width: inherit;
+  height: inherit;
+  /* background-color: rgb(93, 31, 152); */
+  background-color: var(--primaryCards);
+  position: absolute;
+  border-radius: 40%;
+  /* border: 30px solid #514b82; */
+  animation: carg_anim var(--tiempo_load) 2 linear;
+}
+.cargadorTiempo_texto {
+  text-align: center;
+  align-items: center;
+  font-size: calc(var(--font_card_medium) / 1.8);
+  color: transparent;
+  border: 1px;
+  z-index: 1;
+  animation: carg_anim_text calc(var(--tiempo_load)) 2 ease-in;
+}
+@keyframes carg_anim_text {
+  0% {
+    color: rgba(255, 255, 255, 0);
+    font-size: calc(var(--font_card_medium) / 1.8);
+  }
+  2% {
+    color: rgb(255, 255, 255);
+    font-size: var(--font_card_medium);
+  }
+  20% {
+    color: rgb(255, 255, 255);
+    font-size: var(--font_card_medium);
+  }
+  24% {
+    color: rgb(255, 255, 255);
+    font-size: calc(var(--font_card_medium) / 1.8);
+  }
+  96% {
+    color: rgb(255, 255, 255);
+    font-size: calc(var(--font_card_medium) / 1.8);
+  }
+  100% {
+    color: rgba(255, 255, 255, 0);
+    font-size: 0rem;
+  }
+}
+@keyframes carg_anim {
+  0% {
+    clip-path: polygon(50% 50%, 50% 0, 50% 0, 50% 0, 50% 0, 50% 0, 50% 0);
+  }
+  12.5% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  37.5% {
+    clip-path: polygon(
+      50% 50%,
+      50% 0,
+      100% 0,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%
+    );
+  }
+  62.5% {
+    clip-path: polygon(
+      50% 50%,
+      50% 0,
+      100% 0,
+      100% 100%,
+      0 100%,
+      0 100%,
+      0 100%
+    );
+  }
+  87.5% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 0 0);
+  }
+  100% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);
+  }
+}
+/* #endregion */
+
+/* #region MARK:Cards2
+*/
+.home {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1s ease;
+}
+.contenedor_grid {
+  display: grid;
+  grid-template-columns:
+    1fr minmax(var(--tam_grid_centromax), var(--tam_grid_centro))
+    1fr;
+  /* grid-template-columns: 1fr 0 0; */
+  grid-template-rows:
+    1.5fr 1.5fr minmax(var(--tam_grid_centro), var(--tam_grid_centromax))
+    1fr 1fr 1fr;
+  /* grid-template-rows: 1fr 0 0 0 0 0 ; */
+  width: calc(100% - 4vw);
+  height: calc(100% - 4vw);
+  margin: 2vw;
+  gap: 2vw;
+  align-items: center;
+  justify-items: center;
+  font-family: Geist;
+  font-weight: 600;
+  font-size: 1.4rem;
+  transition: all 600ms ease;
+}
+.item_grid {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid black; */
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.grid_01 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  border-radius: 0 5vh 5vh 5vh;
+  background-color: var(--primaryCards);
+  align-items: start;
+  color: #f5f8ff;
+  justify-content: left;
+  font-size: var(--fontSubtitle);
+  transform: translate();
+  transition: all 600ms ease-in-out;
+}
+.grid_01:hover {
+  background-color: var(--rutinesColor);
+  color: #111b2d;
+  /* transform: translate(-110%, -110%); */
+}
+.grid_02 {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  border-radius: 5vh 0 5vh 5vh;
+  background-color: var(--primaryCards);
+  color: #f5f8ff;
+  align-items: end;
+  justify-content: right;
+  font-size: var(--fontSubtitle);
+  writing-mode: vertical-lr;
+  transform: translate();
+  transition: all 600ms ease-in-out;
+}
+.grid_02:hover {
+  background-color: var(--goalsColor);
+  color: #111b2d;
+  /* transform: translate(110%, -110%); */
+}
+.grid_03 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 5;
+  border-radius: 5vh 5vh 5vh 5vh;
+  background-color: var(--primaryCards);
+  color: #f5f8ff;
+  align-items: start;
+  justify-content: center;
+  /* font-size: 1.5rem; en .p_grid_03 ya que he tenido que animarlo independiente porque align no permite animaciones y yo lo quería centrado en la vertical */
+  transform: translateX();
+  transition: all 600ms 0ms ease-in-out;
+}
+.grid_03:hover {
+  background-color: var(--profileColor);
+  color: #111b2d;
+  /* color: #111b2d; */
+  /* transform: translateX(-110%); */
+}
+.p_grid_03 {
+  display: flex;
+  /* font-size: 1.5rem; ANTES de asignarle un valor variable como el de abajo, tenia esta medida*/
+  font-size: calc(var(--fontSubtitle) / 2);
+  height: 100%;
+  /* border: 1px solid black; */
+  align-items: center;
+  transition: font-size 600ms ease-in-out, height 800ms ease-in-out;
+  /* transition: height 600ms ease-in-out; */
+}
+.grid_04 {
+  background-color: var(--mainColor);
+  color: #111b2d;
+  font-size: 6rem;
+  line-height: 0rem;
+  border-radius: 0;
+  transform: scale();
+  transition: all 600ms ease-in-out;
+  /* border: 1px solid black; */
+}
+.grid_04:hover {
+  border-radius: 5vh;
+  /* transform: scale(0%); */
+}
+.grid_05 {
+  /* EXERCISES */
+  display: flex;
+  flex-flow: row wrap;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 4;
+  grid-row-end: 7;
+  border-radius: 5vh 5vh 0 5vh;
+  background-color: var(--primaryCards);
+  color: var(--whiteAppColor);
+  align-items: end;
+  justify-content: right; /* QUIZAS este no es necesario ya que ahora esta div contiene un <p> con el titulo y este <p> tiene text-align right */
+  font-size: var(--fontSubtitle);
+  transform: translate();
+  transition: all 600ms ease-in-out;
+}
+.grid_05:hover {
+  background-color: var(--exercisesColor);
+  color: #111b2d;
+  /* transform: translate(110%, 110%); */
+}
+.grid_06 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 5;
+  grid-row-end: 7;
+  border-radius: 5vh 5vh 5vh 0;
+  background-color: var(--primaryCards);
+  color: #f5f8ff;
+  /* align-items: center; ANTES pero para animar con texto centrado en la vertical se ha cambiado */
+  align-items: end;
+  justify-content: center;
+  /* font-size: 1.5rem; en .p_grid_03 ya que he tenido que animarlo independiente porque align no permite animaciones y yo lo quería centrado en la vertical */
+  transform: translate();
+  transition: all 600ms ease-in-out;
+}
+.grid_06:hover {
+  background-color: var(--mealsColor);
+  color: #111b2d;
+  /* transform: translate(-110%, 110%); */
+}
+.p_grid_06 {
+  display: flex;
+  font-size: calc(var(--fontSubtitle) / 2);
+  height: 100%;
+  /* border: 1px solid black; */
+  align-items: center;
+  transition: font-size 600ms ease-in-out, height 800ms ease-in-out;
+  /* transition: height 600ms ease-in-out; */
+}
+.actualExercise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--mainColor);
+  /* width: 100%;
+  height: 100%; */
+  width: calc(100% - 4vw - 4px);
+  /* 100% - margenes - tamaño outline */
+  height: calc(100% - 2vw - 4px - calc(var(--size_menu) / 2));
+  margin: 2vw;
+  outline: 4px solid rgb(255, 255, 255);
+  /* border: 1px solid black; */
+  border-radius: 5vh;
+  transform: scale(0);
+  opacity: 0;
+  transition: all 600ms 300ms ease-in-out;
+  z-index: 0;
+  /* clip-path: url(#marco_clip); */
+}
+/* .marco_clip_size {
+  --proporcion_screen: calc(100vh / 100vw);
+  --proporcion_clip: calc(1920 / 1080);
+  --proporcion_final: calc(1.778 / var(--proporcion_screen));
+  --factor: calc(var(--proporcion_final) / 100);
+  --try_one: calc(100vw / 1080);
+  width: 100%;
+  height: 100%;
+  transform: scaleX(var(--try_one));
+} */
+.p_grid {
+  /* width: calc(100% - (var(--size_menu) / 1.6)); */
+  width: 100%;
+  /* display: inline-block; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+.grid_01 > .p_grid {
+  text-align: left;
+}
+.grid_02 > h4 {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: right;
+  /* border: 1px solid black; */
+}
+.grid_05 > .p_grid {
+  text-align: right;
+}
+.item_grid a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--whiteAppColor);
+  width: 0;
+  height: 0;
+  background-color: var(--primaryCards);
+  border-radius: 50%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 600ms ease-in-out;
+}
+
+/* MARK:Level3 
+*/
+.interior_grid {
+  /* ARTICLE es el contenedor de todo el interior */
+  display: flex;
+  flex-flow: row wrap;
+  width: 0;
+  height: 0;
+  overflow: auto;
+  align-content: start;
+  align-items: end;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 600ms ease-in-out;
+  /* border: 1px solid black; */
+}
+.interior_grid_on {
+  width: 100%;
+  /* height: 90%; */
+  height: calc(95% - var(--fontSubtitle));
+  opacity: 100;
+  visibility: visible;
+}
+.Card_interior {
+  /* DIV que es el contenedor cada tarjeta (CARD) del interior */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  order: 2;
+  --card_flex: 0px;
+  flex-grow: 1;
+  flex-shrink: 10;
+  font-size: 1rem;
+  /* flex-basis: calc(100px - var(--card_flex)); */
+  width: calc(100px - var(--card_flex));
+  height: calc(100px - var(--card_flex));
+  border-radius: 4vh;
+  margin: 0.7vh;
+  color: var(--whiteAppColor);
+  background-color: var(--primaryCards);
+  transition: all 600ms ease-in-out;
+}
+/* .card_int01:hover {
+  order: 1;
+  --card_flex: 200px;
+  width: calc(100px + var(--card_flex));
+  height: calc(200px + var(--card_flex));
+  flex-grow: 10;
+  flex-shrink: 1;
+} */
+.card_int_open {
+  /* STYLE que se impulsa por JavaScript cuando se clickea sobre cada CARD */
+  order: 1;
+  --card_flex: 40vh; /* TAMAÑO que aumentará la CARD */
+  width: calc(100px + var(--card_flex));
+  height: calc(200px + var(--card_flex));
+  flex-grow: 10;
+  flex-shrink: 1;
+
+  /* STYLE para el CONTENIDO */
+}
+.card_int02 {
+  /* CARD de prueba para ver posición (ORDER de flex) de cada CARD */
+  background-color: #6d1d4f;
+}
+.card_int_add {
+  font-size: 3rem;
+}
+.Card_interior > article {
+  display: flex;
+  padding: 1rem;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid rgb(67, 222, 29); */
+}
+.Card_interior > article h5 {
+  font-size: 1rem;
+  text-align: center;
+  /* border: 1px solid rgb(67, 222, 29); */
+  transition: all 600ms ease-in-out;
+}
+.Card_interior > article div#contenido {
+  display: flex;
+  transform: scale(0%);
+  width: 100%;
+  height: 0%;
+  opacity: 0;
+  /* border: 1px solid white; */
+  transition: all 600ms ease-in-out;
+}
+.articulo_contenido {
+  transform: scale(100%);
+}
+/* MARK:CrCon
+Styles del CONTENIDO DE CADA CARD */
+div#contenido {
+  display: flex;
+  flex-flow: row wrap;
+}
+div#contenido > h6 {
+  display: flex;
+  align-items: center;
+  width: calc(100% - 4rem);
+  height: 3rem;
+  font-size: 1rem;
+  justify-content: center;
+  vertical-align: middle;
+  color: var(--whiteAppColor);
+  /* border: 1px solid greenyellow; */
+}
+div#contenido > p.sincedays {
+  display: flex;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  justify-content: center;
+  background-color: var(--exercisesColor);
+  border-radius: 30%;
+  color: var(--primaryCards);
+  font-size: 1.4rem;
+  font-weight: 800;
+  /* border: 1px solid greenyellow; */
+}
+div#contenido > aside.graphics {
+  /* border: 1px solid greenyellow; */
+  width: 100%;
+  height: calc(100% - 3rem);
+}
+
+/* MARK: Drawin' 
+*/
+div.mask_draw {
+  display: block;
+  transform: translateX(calc(-2rem));
+  width: 100%;
+  overflow: hidden;
+  /* border: 1px solid rgb(158, 12, 12); */
+}
+div.cont_draw {
+  transform: translateX(-4px);
+  width: 100%;
+  /* border: 1px solid black; */
+}
+#path_size {
+  width: 60%;
+  height: 60%;
+  visibility: visible;
+}
+.draw_path_off {
+  fill: none;
+  stroke: none;
+  transform: translateY(1px);
+}
+.draw_path_on {
+  fill: none;
+  stroke: #a6427c;
+  stroke-width: 2px;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: move_path 2s ease-in-out forwards;
+}
+@keyframes move_path {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* #region MARK: NAV2
+*/
+.menu_position {
+  display: flex;
+  justify-content: center;
+  width: 400px;
+  /* border: 1px solid black; */
+  margin: auto;
+  /* agregadas en nuevo html libreria*/
+  visibility: hidden;
+  opacity: 0;
+  transition: all 600ms 200ms ease-in-out;
+}
+aside.menu_nav {
+  width: var(--size_menu);
+  height: var(--size_menu);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  z-index: 3;
+}
+div.site_velo {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 2; /* IMPORTANTE: z-index depende de la propiedad posición (position) por tanto aqui solo tengo dos fijas una para el velo blanco en 0 y otra para el menu de navegación en 1, es decir por encima del velo */
+  visibility: hidden;
+  background-color: rgba(255, 255, 255, 0);
+  transition: all 1s ease-in-out;
+}
+
+.menu_nav {
+  --margin_navmenu: calc((var(--size_menu) * 0.1) / 2);
+  --size_menubtn: calc(var(--size_menu) / 1.6);
+  width: 100vw;
+  height: 95vh;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: end;
+}
+.navbtn_homeclass {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc((var(--size_menu) / 1.4));
+  height: calc((var(--size_menu) / 1.4));
+  padding: 0;
+  background-color: #306ef9;
+  border-radius: calc((var(--size_menu) / 1.4));
+  transition: all 400ms ease-in-out;
+  outline: 4px solid white;
+}
+/* .navbtn_homeclass:hover {
+  --margin_navmenu: calc((var(--size_menu) * 0.1) / 2);
+  --size_menubtn: calc(var(--size_menu) / 1.6);
+  width: calc((var(--size_menubtn) * 5));
+  padding: 0 calc(var(--margin_navmenu) / 2);
+} */
+.navbtn_interior {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--size_menubtn);
+  height: calc(var(--size_menubtn) - var(--margin_navmenu));
+  margin: var(--margin_navmenu);
+  background-color: var(--primaryCards);
+  border-radius: 50%;
+  transform: scale(0%);
+  filter: blur(10px);
+  opacity: 0;
+  font-size: 0;
+  font-weight: 700;
+  transition: all 400ms ease-in-out;
+}
+.navbtn01,
+.navbtn02,
+.navbtn04,
+.navbtn05 {
+  width: var(--size_menubtn);
+  height: calc(var(--size_menubtn) - var(--margin_navmenu));
+  /* color: rgba(255, 255, 255, 0); */
+  font-size: 0;
+  font-weight: 700;
+  transition: all 400ms ease-in-out;
+}
+.navbtn03 {
+  width: var(--size_menubtn);
+  height: calc(var(--size_menubtn) - var(--margin_navmenu));
+  background-color: var(--profileColor);
+  color: rgba(255, 255, 255, 1);
+  font-size: 3rem;
+  padding-bottom: calc(3rem / 10);
+  outline: 2px solid white;
+  transition: all 400ms ease-in-out;
+}
+.navbtn01_hover {
+  width: calc(var(--size_menubtn) + 100px);
+  border-radius: calc(var(--size_menubtn) + 100px);
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.2rem;
+}
+.navbtn_mini {
+  width: 20px;
+  height: 20px;
+  font-size: 0rem;
+  color: rgba(255, 255, 255, 0);
+  padding-bottom: calc(1rem / 10);
+  transition: all 400ms ease-in-out;
+}
+#btn_menu > a {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: calc(var(--font_menu) * 2); /* font-size: 2rem donde em=14px*/
+  line-height: calc(
+    var(--font_menu) * 2
+  ); /* Para mantener la alineación vertical centrada en casos de menu muy pequeño como 20px */
+  color: var(--whiteAppColor);
+  rotate: 90deg;
+  transition: color 0.4s ease-in;
+}
+/* .navbtn01:hover {
+  width: calc(var(--size_menubtn) + 100px);
+  border-radius: calc(var(--size_menubtn) + 100px);
+} */
+/* .navbtn01:hover::after {
+  color: white;
+  content: "HOLA";
+} */
+
+/* MARK:GRAF
+*/
+aside.graphics > div.grafico {
+  width: 100%;
+  height: 120px;
+  margin-top: 2rem;
+  background: linear-gradient(
+    to bottom,
+    var(--rutinesColor) 20%,
+    var(--primaryCards) 100%
+  );
+  /* border: 1px solid #306ef9; */
+  /*  animation: grafico_anim 3s ease-in-out;
+  animation-fill-mode: forwards; */
+}
+@keyframes grafico_anim {
+  0% {
+    clip-path: polygon(
+      14% 100%,
+      0 100%,
+      0 100%,
+      100% 100%,
+      100% 100%,
+      93% 100%,
+      84% 100%,
+      70% 100%,
+      56% 100%,
+      45% 100%,
+      36% 100%,
+      28% 100%
+    );
+  }
+  100% {
+    clip-path: polygon(
+      7% 27%,
+      0 34%,
+      0 100%,
+      100% 100%,
+      100% 14%,
+      86% 13%,
+      73% 16%,
+      61% 21%,
+      46% 24%,
+      39% 30%,
+      28% 28%,
+      17% 30%
+    );
+  }
+}
+
+/* #region MARK: CONTENT
+*/
+
+/* MARK:MEDIA 
+*/
+@media screen and (max-width: 400px) {
+  :root {
+    --tam_grid_centro: 10vw;
+    --tam_grid_centromax: 10vh;
+  }
+}
+@font-face {
+  font-family: dalcora;
+  src: url("../fonts/dalcora.ttf") format("truetype");
+  font-family: Geist;
+  src: url("../fonts/Geist[wght].ttf") format("truetype") tech(variations);
+  font-weight: 100 200 300 400 500 600 700 800 900;
+  size-adjust: 99%;
+}
+/* #region MARK:ROOT 
+*/
+:root {
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: Geist;
+  font-size: 14px;
+  /* #region MARK: Sizes
+  */
+  --tiempo_load: 10s; /* Tiempo de 1 minuto para por ahora solo el cargador (loader) */
+  --tam_cards_medium: 200px; /* Inicialmente diseñado para 200px */
+  --font_card_medium: calc(
+    var(--tam_cards_medium) / 2.1
+  ); /* Inicialmente diseñado para 7rem, ya que font-size=14px, entonces 7rem = 98 px para el tamaño de 200px. el valor/2.1 = 95px */
+
+  /* #region MARK:SizNav 
+  */
+  /*--size_menu: 15vw;  ORIGINAL DISEÑADO inicialmente en 80px */
+  --size_menu: clamp(10vw, 80px, 90px); /* DISEÑADO inicialmente en 80px */
+  --scale_menu: 1.4; /* DISEÑADO inicial en 140% para hover */
+  --font_menu: calc(
+    (var(--size_menu) / 5.7)
+  ); /* DISEÑADO inicial para 14px de rem */
+
+  /* MARK:SizGrid 
+  */
+  --tam_grid_centro: 12vw;
+  --tam_grid_centromax: 20vh;
+
+  /* MARK:varColor
+  */
+  --primaryCards: #101e42;
+  --mainColor: #306ef9;
+  --rutinesColor: #e11e90;
+  --goalsColor: #fdcf28;
+  --profileColor: #8604d1;
+  --exercisesColor: #c0f735;
+  --mealsColor: #f3991b;
+  --whiteAppColor: #f5f8ff;
+
+  /* MARK:varTypo
+  */
+  --fontSubtitle: min(11vh, 9vw);
+}
+/* #endregion */
+
+/* #region MARK:RESET 
+Inicio Reset */
+*,
+*::before,
+*::after {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box; /* IMPORTANTE: Hace que mis tamaños dependan del width que le de a la caja (elemento), sin contar el tamaño de bordes o paddings */
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+html {
+  scroll-behavior: smooth;
+}
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+  /* height: 100%; */
+  /* Le quito el height porque afecta mi STICKY, de tenerlo la barra que quiero se desplace y quede quita lo hará solo hasta la altura asignada en este body, por definición, todo lo que le haga a un padre de un STICKY puede afectarle */
+}
+/* #endregion */
+
+/* #region MARK:MAQUET 
+*/
+main {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  justify-content: center;
+  /* background: linear-gradient(#cd899e, #a6427c, #234272, #101e42); */
+  /* background: linear-gradient(#dfb1b6, #234272 90%, #101e42 100%); */
+  background: linear-gradient(#f5f8ff 60%, var(--mainColor) 100%);
+}
+
+/* #enderegion */
+
+/* #region MARK:CONTAIN 
+*/
+.element_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+  /* height: 250px;  Al no contener nada no se ve, para VER activar*/
+  /* border: 1px solid black; */
+  margin: auto;
+}
+/* #enderegion */
+
+/* #region MARK:LOGO
+*/
+div.logo_inicio {
+  display: flex;
+  position: absolute;
+  width: 20vh;
+  height: 80vh;
+  /* border: 1px solid black; */
+  margin: auto;
+  opacity: 100;
+  visibility: visible;
+  transition: all 600ms ease;
+}
+path.a,
+path.b {
+  fill: var(--mainColor);
+}
+path.a {
+  transform: translateY(-50%);
+  opacity: 0;
+  transition-delay: 500ms;
+  transition: all 600ms ease-in-out;
+}
+path.b {
+  transform: translateY(+50%);
+  opacity: 0;
+  transition-delay: 500ms;
+  transition: all 600ms ease-in-out;
+}
+.path.a::after,
+path.b::after {
+  content: "";
+  transform: translateY(0);
+  opacity: 100;
+}
+
+/*ESTO ESTÁ EN JAVASCRIPT funcion chargeLogo */
+
+/*#region MARK: LOADERS 
+*/
+.cargadorTiempo {
+  width: var(--tam_cards_medium);
+  height: var(--tam_cards_medium);
+  position: absolute;
+  /* background-color: rgba(76, 45, 108, 0.477);
+  border-radius: 40%; */
+  /* animation: carg_anim 5s 2 linear; */
+}
+.cargadorTiempo::before {
+  content: "";
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  /* background-color: rgba(76, 45, 108, 0.477); */
+  background-color: #23437266;
+  border-radius: 40%;
+  /* animation: carg_anim 5s 2 linear; */
+}
+.cargadorTiempo::after {
+  content: "";
+  width: inherit;
+  height: inherit;
+  /* background-color: rgb(93, 31, 152); */
+  background-color: var(--primaryCards);
+  position: absolute;
+  border-radius: 40%;
+  /* border: 30px solid #514b82; */
+  animation: carg_anim var(--tiempo_load) 2 linear;
+}
+.cargadorTiempo_texto {
+  text-align: center;
+  align-items: center;
+  font-size: calc(var(--font_card_medium) / 1.8);
+  color: transparent;
+  border: 1px;
+  z-index: 1;
+  animation: carg_anim_text calc(var(--tiempo_load)) 2 ease-in;
+}
+@keyframes carg_anim_text {
+  0% {
+    color: rgba(255, 255, 255, 0);
+    font-size: calc(var(--font_card_medium) / 1.8);
+  }
+  2% {
+    color: rgb(255, 255, 255);
+    font-size: var(--font_card_medium);
+  }
+  20% {
+    color: rgb(255, 255, 255);
+    font-size: var(--font_card_medium);
+  }
+  24% {
+    color: rgb(255, 255, 255);
+    font-size: calc(var(--font_card_medium) / 1.8);
+  }
+  96% {
+    color: rgb(255, 255, 255);
+    font-size: calc(var(--font_card_medium) / 1.8);
+  }
+  100% {
+    color: rgba(255, 255, 255, 0);
+    font-size: 0rem;
+  }
+}
+@keyframes carg_anim {
+  0% {
+    clip-path: polygon(50% 50%, 50% 0, 50% 0, 50% 0, 50% 0, 50% 0, 50% 0);
+  }
+  12.5% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  37.5% {
+    clip-path: polygon(
+      50% 50%,
+      50% 0,
+      100% 0,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%
+    );
+  }
+  62.5% {
+    clip-path: polygon(
+      50% 50%,
+      50% 0,
+      100% 0,
+      100% 100%,
+      0 100%,
+      0 100%,
+      0 100%
+    );
+  }
+  87.5% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 0 0);
+  }
+  100% {
+    clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);
+  }
+}
+/* #endregion */
+
+/* #region MARK:Cards2
+*/
+.home {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1s ease;
+}
+.contenedor_grid {
+  display: grid;
+  grid-template-columns:
+    1fr minmax(var(--tam_grid_centromax), var(--tam_grid_centro))
+    1fr;
+  /* grid-template-columns: 1fr 0 0; */
+  grid-template-rows:
+    1.5fr 1.5fr minmax(var(--tam_grid_centro), var(--tam_grid_centromax))
+    1fr 1fr 1fr;
+  /* grid-template-rows: 1fr 0 0 0 0 0 ; */
+  width: calc(100% - 4vw);
+  height: calc(100% - 4vw);
+  margin: 2vw;
+  gap: 2vw;
+  align-items: center;
+  justify-items: center;
+  font-family: Geist;
+  font-weight: 600;
+  font-size: 1.4rem;
+  transition: all 600ms ease;
+}
+.item_grid {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid black; */
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.grid_01 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  border-radius: 0 5vh 5vh 5vh;
+  background-color: var(--primaryCards);
+  align-items: start;
+  color: #f5f8ff;
+  justify-content: left;
+  font-size: var(--fontSubtitle);
+  transform: translate();
+  transition: all 600ms ease-in-out;
+}
+.grid_01:hover {
+  background-color: var(--rutinesColor);
+  color: #111b2d;
+  /* transform: translate(-110%, -110%); */
+}
+.grid_02 {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  border-radius: 5vh 0 5vh 5vh;
+  background-color: var(--primaryCards);
+  color: #f5f8ff;
+  align-items: end;
+  justify-content: right;
+  font-size: var(--fontSubtitle);
+  writing-mode: vertical-lr;
+  transform: translate();
+  transition: all 600ms ease-in-out;
+}
+.grid_02:hover {
+  background-color: var(--goalsColor);
+  color: #111b2d;
+  /* transform: translate(110%, -110%); */
+}
+.grid_03 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 5;
+  border-radius: 5vh 5vh 5vh 5vh;
+  background-color: var(--primaryCards);
+  color: #f5f8ff;
+  align-items: start;
+  justify-content: center;
+  /* font-size: 1.5rem; en .p_grid_03 ya que he tenido que animarlo independiente porque align no permite animaciones y yo lo quería centrado en la vertical */
+  transform: translateX();
+  transition: all 600ms 0ms ease-in-out;
+}
+.grid_03:hover {
+  background-color: var(--profileColor);
+  color: #111b2d;
+  /* color: #111b2d; */
+  /* transform: translateX(-110%); */
+}
+.p_grid_03 {
+  display: flex;
+  /* font-size: 1.5rem; ANTES de asignarle un valor variable como el de abajo, tenia esta medida*/
+  font-size: calc(var(--fontSubtitle) / 2);
+  height: 100%;
+  /* border: 1px solid black; */
+  align-items: center;
+  transition: font-size 600ms ease-in-out, height 800ms ease-in-out;
+  /* transition: height 600ms ease-in-out; */
+}
+.grid_04 {
+  background-color: var(--mainColor);
+  color: #111b2d;
+  font-size: 6rem;
+  line-height: 0rem;
+  border-radius: 0;
+  transform: scale();
+  transition: all 600ms ease-in-out;
+  /* border: 1px solid black; */
+}
+.grid_04:hover {
+  border-radius: 5vh;
+  /* transform: scale(0%); */
+}
+.grid_05 {
+  /* EXERCISES */
+  display: flex;
+  flex-flow: row wrap;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 4;
+  grid-row-end: 7;
+  border-radius: 5vh 5vh 0 5vh;
+  background-color: var(--primaryCards);
+  color: var(--whiteAppColor);
+  align-items: end;
+  justify-content: right; /* QUIZAS este no es necesario ya que ahora esta div contiene un <p> con el titulo y este <p> tiene text-align right */
+  font-size: var(--fontSubtitle);
+  transform: translate();
+  transition: all 600ms ease-in-out;
+}
+.grid_05:hover {
+  background-color: var(--exercisesColor);
+  color: #111b2d;
+  /* transform: translate(110%, 110%); */
+}
+.grid_06 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 5;
+  grid-row-end: 7;
+  border-radius: 5vh 5vh 5vh 0;
+  background-color: var(--primaryCards);
+  color: #f5f8ff;
+  /* align-items: center; ANTES pero para animar con texto centrado en la vertical se ha cambiado */
+  align-items: end;
+  justify-content: center;
+  /* font-size: 1.5rem; en .p_grid_03 ya que he tenido que animarlo independiente porque align no permite animaciones y yo lo quería centrado en la vertical */
+  transform: translate();
+  transition: all 600ms ease-in-out;
+}
+.grid_06:hover {
+  background-color: var(--mealsColor);
+  color: #111b2d;
+  /* transform: translate(-110%, 110%); */
+}
+.p_grid_06 {
+  display: flex;
+  font-size: calc(var(--fontSubtitle) / 2);
+  height: 100%;
+  /* border: 1px solid black; */
+  align-items: center;
+  transition: font-size 600ms ease-in-out, height 800ms ease-in-out;
+  /* transition: height 600ms ease-in-out; */
+}
+.actualExercise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--mainColor);
+  /* width: 100%;
+  height: 100%; */
+  width: calc(100% - 4vw - 4px);
+  /* 100% - margenes - tamaño outline */
+  height: calc(100% - 2vw - 4px - calc(var(--size_menu) / 2));
+  margin: 2vw;
+  outline: 4px solid rgb(255, 255, 255);
+  /* border: 1px solid black; */
+  border-radius: 5vh;
+  transform: scale(0);
+  opacity: 0;
+  transition: all 600ms 300ms ease-in-out;
+  z-index: 0;
+  /* clip-path: url(#marco_clip); */
+}
+/* .marco_clip_size {
+  --proporcion_screen: calc(100vh / 100vw);
+  --proporcion_clip: calc(1920 / 1080);
+  --proporcion_final: calc(1.778 / var(--proporcion_screen));
+  --factor: calc(var(--proporcion_final) / 100);
+  --try_one: calc(100vw / 1080);
+  width: 100%;
+  height: 100%;
+  transform: scaleX(var(--try_one));
+} */
+.p_grid {
+  /* width: calc(100% - (var(--size_menu) / 1.6)); */
+  width: 100%;
+  /* display: inline-block; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+.grid_01 > .p_grid {
+  text-align: left;
+}
+.grid_02 > h4 {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: right;
+  /* border: 1px solid black; */
+}
+.grid_05 > .p_grid {
+  text-align: right;
+}
+.item_grid a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--whiteAppColor);
+  width: 0;
+  height: 0;
+  background-color: var(--primaryCards);
+  border-radius: 50%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 600ms ease-in-out;
+}
+
+/* MARK:Level3 
+*/
+.interior_grid {
+  /* ARTICLE es el contenedor de todo el interior */
+  display: flex;
+  flex-flow: row wrap;
+  width: 0;
+  height: 0;
+  overflow: auto;
+  align-content: start;
+  align-items: end;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 600ms ease-in-out;
+  /* border: 1px solid black; */
+}
+.interior_grid_on {
+  width: 100%;
+  /* height: 90%; */
+  height: calc(95% - var(--fontSubtitle));
+  opacity: 100;
+  visibility: visible;
+}
+.Card_interior {
+  /* DIV que es el contenedor cada tarjeta (CARD) del interior */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  order: 2;
+  --card_flex: 0px;
+  flex-grow: 1;
+  flex-shrink: 10;
+  font-size: 1rem;
+  /* flex-basis: calc(100px - var(--card_flex)); */
+  width: calc(100px - var(--card_flex));
+  height: calc(100px - var(--card_flex));
+  border-radius: 4vh;
+  margin: 0.7vh;
+  color: var(--whiteAppColor);
+  background-color: var(--primaryCards);
+  transition: all 600ms ease-in-out;
+}
+/* .card_int01:hover {
+  order: 1;
+  --card_flex: 200px;
+  width: calc(100px + var(--card_flex));
+  height: calc(200px + var(--card_flex));
+  flex-grow: 10;
+  flex-shrink: 1;
+} */
+.card_int_open {
+  /* STYLE que se impulsa por JavaScript cuando se clickea sobre cada CARD */
+  order: 1;
+  --card_flex: 40vh; /* TAMAÑO que aumentará la CARD */
+  width: calc(100px + var(--card_flex));
+  height: calc(200px + var(--card_flex));
+  flex-grow: 10;
+  flex-shrink: 1;
+
+  /* STYLE para el CONTENIDO */
+}
+.card_int02 {
+  /* CARD de prueba para ver posición (ORDER de flex) de cada CARD */
+  background-color: #6d1d4f;
+}
+.card_int_add {
+  font-size: 3rem;
+}
+.Card_interior > article {
+  display: flex;
+  padding: 1rem;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid rgb(67, 222, 29); */
+}
+.Card_interior > article h5 {
+  font-size: 1rem;
+  text-align: center;
+  /* border: 1px solid rgb(67, 222, 29); */
+  transition: all 600ms ease-in-out;
+}
+.Card_interior > article div#contenido {
+  display: flex;
+  transform: scale(0%);
+  width: 100%;
+  height: 0%;
+  opacity: 0;
+  /* border: 1px solid white; */
+  transition: all 600ms ease-in-out;
+}
+.articulo_contenido {
+  transform: scale(100%);
+}
+/* MARK:CrCon
+Styles del CONTENIDO DE CADA CARD */
+div#contenido {
+  display: flex;
+  flex-flow: row wrap;
+}
+div#contenido > h6 {
+  display: flex;
+  align-items: center;
+  width: calc(100% - 4rem);
+  height: 3rem;
+  font-size: 1rem;
+  justify-content: center;
+  vertical-align: middle;
+  color: var(--whiteAppColor);
+  /* border: 1px solid greenyellow; */
+}
+div#contenido > p.sincedays {
+  display: flex;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  justify-content: center;
+  background-color: var(--exercisesColor);
+  border-radius: 30%;
+  color: var(--primaryCards);
+  font-size: 1.4rem;
+  font-weight: 800;
+  /* border: 1px solid greenyellow; */
+}
+div#contenido > aside.graphics {
+  /* border: 1px solid greenyellow; */
+  width: 100%;
+  height: calc(100% - 3rem);
+}
+
+/* MARK: Drawin' 
+*/
+div.mask_draw {
+  display: block;
+  transform: translateX(calc(-2rem));
+  width: 100%;
+  overflow: hidden;
+  /* border: 1px solid rgb(158, 12, 12); */
+}
+div.cont_draw {
+  transform: translateX(-4px);
+  width: 100%;
+  /* border: 1px solid black; */
+}
+#path_size {
+  width: 60%;
+  height: 60%;
+  visibility: visible;
+}
+.draw_path_off {
+  fill: none;
+  stroke: none;
+  transform: translateY(1px);
+}
+.draw_path_on {
+  fill: none;
+  stroke: #a6427c;
+  stroke-width: 2px;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: move_path 2s ease-in-out forwards;
+}
+@keyframes move_path {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* #region MARK: NAV2
+*/
+.menu_position {
+  display: flex;
+  justify-content: center;
+  width: 400px;
+  /* border: 1px solid black; */
+  margin: auto;
+  /* agregadas en nuevo html libreria*/
+  visibility: hidden;
+  opacity: 0;
+  transition: all 600ms 200ms ease-in-out;
+}
+aside.menu_nav {
+  width: var(--size_menu);
+  height: var(--size_menu);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  z-index: 3;
+}
+div.site_velo {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 2; /* IMPORTANTE: z-index depende de la propiedad posición (position) por tanto aqui solo tengo dos fijas una para el velo blanco en 0 y otra para el menu de navegación en 1, es decir por encima del velo */
+  visibility: hidden;
+  background-color: rgba(255, 255, 255, 0);
+  transition: all 1s ease-in-out;
+}
+
+.menu_nav {
+  --margin_navmenu: calc((var(--size_menu) * 0.1) / 2);
+  --size_menubtn: calc(var(--size_menu) / 1.6);
+  width: 100vw;
+  height: 95vh;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: end;
+}
+.navbtn_homeclass {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc((var(--size_menu) / 1.4));
+  height: calc((var(--size_menu) / 1.4));
+  padding: 0;
+  background-color: #306ef9;
+  border-radius: calc((var(--size_menu) / 1.4));
+  transition: all 400ms ease-in-out;
+  outline: 4px solid white;
+}
+/* .navbtn_homeclass:hover {
+  --margin_navmenu: calc((var(--size_menu) * 0.1) / 2);
+  --size_menubtn: calc(var(--size_menu) / 1.6);
+  width: calc((var(--size_menubtn) * 5));
+  padding: 0 calc(var(--margin_navmenu) / 2);
+} */
+.navbtn_interior {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--size_menubtn);
+  height: calc(var(--size_menubtn) - var(--margin_navmenu));
+  margin: var(--margin_navmenu);
+  background-color: var(--primaryCards);
+  border-radius: 50%;
+  transform: scale(0%);
+  filter: blur(10px);
+  opacity: 0;
+  font-size: 0;
+  font-weight: 700;
+  transition: all 400ms ease-in-out;
+}
+.navbtn01,
+.navbtn02,
+.navbtn04,
+.navbtn05 {
+  width: var(--size_menubtn);
+  height: calc(var(--size_menubtn) - var(--margin_navmenu));
+  /* color: rgba(255, 255, 255, 0); */
+  font-size: 0;
+  font-weight: 700;
+  transition: all 400ms ease-in-out;
+}
+.navbtn03 {
+  width: var(--size_menubtn);
+  height: calc(var(--size_menubtn) - var(--margin_navmenu));
+  background-color: var(--profileColor);
+  color: rgba(255, 255, 255, 1);
+  font-size: 3rem;
+  padding-bottom: calc(3rem / 10);
+  outline: 2px solid white;
+  transition: all 400ms ease-in-out;
+}
+.navbtn01_hover {
+  width: calc(var(--size_menubtn) + 100px);
+  border-radius: calc(var(--size_menubtn) + 100px);
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.2rem;
+}
+.navbtn_mini {
+  width: 20px;
+  height: 20px;
+  font-size: 0rem;
+  color: rgba(255, 255, 255, 0);
+  padding-bottom: calc(1rem / 10);
+  transition: all 400ms ease-in-out;
+}
+#btn_menu > a {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: calc(var(--font_menu) * 2); /* font-size: 2rem donde em=14px*/
+  line-height: calc(
+    var(--font_menu) * 2
+  ); /* Para mantener la alineación vertical centrada en casos de menu muy pequeño como 20px */
+  color: var(--whiteAppColor);
+  rotate: 90deg;
+  transition: color 0.4s ease-in;
+}
+/* .navbtn01:hover {
+  width: calc(var(--size_menubtn) + 100px);
+  border-radius: calc(var(--size_menubtn) + 100px);
+} */
+/* .navbtn01:hover::after {
+  color: white;
+  content: "HOLA";
+} */
+
+/* MARK:GRAF
+*/
+aside.graphics > div.grafico {
+  width: 100%;
+  height: 120px;
+  margin-top: 2rem;
+  background: linear-gradient(
+    to bottom,
+    var(--rutinesColor) 20%,
+    var(--primaryCards) 100%
+  );
+  /* border: 1px solid #306ef9; */
+  /*  animation: grafico_anim 3s ease-in-out;
+  animation-fill-mode: forwards; */
+}
+@keyframes grafico_anim {
+  0% {
+    clip-path: polygon(
+      14% 100%,
+      0 100%,
+      0 100%,
+      100% 100%,
+      100% 100%,
+      93% 100%,
+      84% 100%,
+      70% 100%,
+      56% 100%,
+      45% 100%,
+      36% 100%,
+      28% 100%
+    );
+  }
+  100% {
+    clip-path: polygon(
+      7% 27%,
+      0 34%,
+      0 100%,
+      100% 100%,
+      100% 14%,
+      86% 13%,
+      73% 16%,
+      61% 21%,
+      46% 24%,
+      39% 30%,
+      28% 28%,
+      17% 30%
+    );
+  }
+}
+
+/* #region MARK: CONTENT
+*/
+
+/* MARK:MEDIA 
+*/
+@media screen and (max-width: 400px) {
+  :root {
+    --tam_grid_centro: 10vw;
+    --tam_grid_centromax: 10vh;
+  }
+}

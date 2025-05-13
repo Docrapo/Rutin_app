@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Libreria de recursos gráficos Proyecto Final</title>
+    <link rel="stylesheet" href="css/library.css" />
+  </head>
+  <body>
+    <header>
+      <!-- MARK: NAV
+       -->
+      <div class="menu_position">
+        <!-- MARK:NAV2 
+         -->
+        <aside id="contenedor_navextensible" class="menu_nav">
+          <div
+            id="navbtn_home"
+            class="navbtn_homeclass"
+            onclick="nav2Opener();"
+          >
+            <div id="btn_menu" class="navbtn_interior navbtn01">Exercises</div>
+            <div id="btn_menu" class="navbtn_interior navbtn02">Rutines</div>
+            <div id="btn_menu" class="navbtn_interior navbtn03">
+              <a href="#" onclick="clearMenu();">&#9632;</a>
+            </div>
+            <div id="btn_menu" class="navbtn_interior navbtn04">Profile</div>
+            <div id="btn_menu" class="navbtn_interior navbtn05">Meals</div>
+          </div>
+        </aside>
+        <!-- MARK: NAV1 -->
+        <!-- <aside id="aside_menu" class="menu">
+          <input type="checkbox" id="menuToggle" />
+          <label for="menuToggle">+</label>
+          <div class="caja_menu">
+            <svg
+              id="barra_nav"
+              data-name="Layer 1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 87.51 379.39"
+            >
+              <path
+                d="M29.98,379.39c-4.79,0-9.65-1.15-14.16-3.57-14.6-7.84-20.08-26.02-12.24-40.62,11.04-20.56,23.93-71.01,23.93-145.5S14.61,64.76,3.57,44.19C-4.26,29.6,1.22,11.41,15.82,3.57c14.6-7.83,32.79-2.35,40.62,12.24,19.45,36.24,31.07,101.24,31.07,173.88s-11.61,137.64-31.07,173.88c-5.41,10.08-15.76,15.82-26.46,15.82Z"
+              />
+            </svg>
+          </div>
+          <nav>
+            <ul>
+              <li class="menu_1">
+                <a href="">❦</a><span class="menu_def">EDITORIAL</span>
+              </li>
+              <li class="menu_2">
+                <a href="">&Ffr;</a><span class="menu_def">TANGANANICA</span>
+              </li>
+              <li class="menu_3">
+                <a href="#" onclick="clearMenu();">G</a
+                ><span class="menu_def">HOLA</span>
+              </li>
+              <li class="menu_4">
+                <a href="">Z</a><span class="menu_def">SOLO UN TEXTO</span>
+              </li>
+              <li class="menu_5">
+                <a href=""
+                  ><svg
+                    id="menu_icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 45.03 39"
+                  >
+                    <polygon
+                      points="33.77 0 11.26 0 0 19.5 11.26 39 33.77 39 45.03 19.5 33.77 0"
+                    /></svg></a
+                ><span class="menu_def">TANGANANA</span>
+              </li>
+            </ul>
+          </nav>
+        </aside> -->
+        <div class="site_velo"></div>
+        <!-- VA AQUI luego del "aside" porque debe ser hermano primero del "aside" para ser el velo blanco al abrir el menu, ver CSS "div.site_velo" -->
+      </div>
+    </header>
+    <main>
+      <!-- #region MARK:Logo 
+      -->
+      <div class="logo_inicio" onclick="clickLogo();">
+        <svg id="a" data-name="Layer 1" viewBox="0 0 427.73 261.02">
+          <path
+            class="b"
+            d="M323.15,0h-9.67c-47.31,0-85.68,38.37-85.68,85.68v89.66h95.35c62.55,0,104.59-29.73,104.59-87.15S386.71,0,323.15,0Z"
+          />
+          <path
+            class="a"
+            d="M104.59,261.02h9.67c47.31,0,85.68-38.37,85.68-85.68v-89.66h-95.35C42.03,85.68,0,115.41,0,172.83s41.02,88.19,104.59,88.19Z"
+          />
+        </svg>
+      </div>
+
+      <!-- #region MARK:Timer
+      -->
+      <!-- <div class="element_container">
+        <div class="cargadorTiempo_texto">2"</div>
+        <div class="cargadorTiempo"></div>
+      </div> -->
+
+      <!-- #region MARK:Card2 
+       -->
+
+      <section class="home">
+        <div class="contenedor_grid">
+          <!-- ITEM 1 ( grid_01) -->
+          <div class="item_grid grid_01" onclick="clickRutines();">
+            <h4 class="p_grid">
+              Rutines<a id="btn_cierraCard" onclick="clearCards();">&#10006;</a>
+            </h4>
+            <article class="interior_grid">
+              <div class="Card_interior" onclick="cardGrow(this);">
+                <article id="sec1_art1">
+                  <h5>Rutine 1</h5>
+                  <div id="contenido">
+                    <h6>3 January 2025</h6>
+                    <p class="sincedays">5</p>
+                    <aside class="graphics">
+                      <div class="grafico"></div>
+                    </aside>
+                    <p></p>
+                  </div>
+                </article>
+              </div>
+              <div
+                class="Card_interior card_int02"
+                onclick="cardGrow(this);"
+              ></div>
+              <div class="Card_interior" onclick="cardGrow(this);"></div>
+              <div class="Card_interior" onclick="cardGrow(this);"></div>
+              <div class="Card_interior" onclick="cardGrow(this);"></div>
+              <div class="Card_interior" onclick="cardGrow(this);"></div>
+              <div class="Card_interior card_int_add" onclick="cardGrow(this);">
+                +
+              </div>
+            </article>
+            <div class="mask_draw">
+              <div class="cont_draw">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg
+                  id="path_size"
+                  data-name="Layer 2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 89.91 28.27"
+                >
+                  <path
+                    class="draw_path_off"
+                    d="M.41,11.65C23.72-20.79,89.61,27.87,89.61,27.87"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="item_grid grid_02" onclick="clickGoals();">
+            <h4>
+              <a id="btn_cierraCard" onclick="clearCards();">&#10006;</a>Goals
+            </h4>
+            <!-- ITEM 2 (grid_02) -->
+          </div>
+          <div class="item_grid grid_03" onclick="clickPerfil();">
+            <p class="p_grid_03">Profile</p>
+            <!-- ITEM 3 -->
+          </div>
+          <div class="item_grid grid_04" onclick="clickMenu();">+</div>
+          <!-- ITEM 5 -->
+          <div class="item_grid grid_05" onclick="clickExercises();">
+            <article class="interior_grid">
+              <div class="Card_interior" onclick="cardGrow(this);"></div>
+              <div
+                class="Card_interior card_int02"
+                onclick="cardGrow(this);"
+              ></div>
+              <div class="Card_interior" onclick="cardGrow(this);"></div>
+              <div class="Card_interior" onclick="cardGrow(this);"></div>
+              <div class="Card_interior" onclick="cardGrow(this);"></div>
+              <div class="Card_interior" onclick="cardGrow(this);"></div>
+              <div class="Card_interior card_int_add" onclick="cardGrow(this);">
+                +
+              </div>
+            </article>
+            <h4 class="p_grid">
+              <a id="btn_cierraCard" onclick="clearCards();">&#10006;</a
+              >Workouts
+            </h4>
+          </div>
+          <div class="item_grid grid_06" onclick="clickMeal();">
+            <!-- <a class="cierraLaCard">X</a> -->
+            <p class="p_grid_06">Meals</p>
+            <!-- ITEM 6 -->
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="actualExercise">
+          <!-- <svg>
+            <clipPath id="marco_clip" class="marco_clip_size">
+              <path
+                d="M363.88,1875.43c26.51,0,48-21.49,48-48v-87.9c0-26.51,21.49-48,48-48h121.99c26.51,0,48,21.49,48,48v87.9c0,26.51,21.49,48,48,48h355.5V0H0v1875.43h363.88Z"
+              />
+            </clipPath>
+          </svg> -->
+        </div>
+      </section>
+    </main>
+    <script src="js/library.js"></script>
+    <script src="js/library_nav2.js"></script>
+  </body>
+</html>
